@@ -1,0 +1,101 @@
+////////////////////////////////////////////////////////////////////////////////
+// Fonts
+////////////////////////////////////////////////////////////////////////////////
+@font-face {
+  font-family: Dudu Calligraphy;
+  src: url("../fonts/Dudu_Calligraphy.ttf");
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Body styles
+////////////////////////////////////////////////////////////////////////////////
+body {
+  background-color: #000000;
+  background-image: url("../images/backgrounds/fallback.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  font-family: "Dudu Calligraphy", sans-serif;
+  font-size: 100%;
+
+  color: #FFFFFF;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Sections
+////////////////////////////////////////////////////////////////////////////////
+
+// Container for video background.
+#container-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  top: 0;
+  left: 0;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    frameborder: 0;
+  }
+}
+
+// Hidden layer between video background and quote containers.
+#mask {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+}
+
+// Containers containing quote and quote source.
+#area-generate-quote {
+  font-size: 2.5em;
+}
+
+// Container for all quote, source, and social media content.
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+}
+
+// Quote Container.
+#container-quote {
+  text-align: center;
+  max-width: 100%;
+}
+
+// Quote Source Container.
+#container-quote-source {
+  text-align: right;
+    max-width: 100%;
+}
+
+// Social Media Container.
+#container-social-media {
+  text-align: center;
+  width: 100%;
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Miscellaneous
+////////////////////////////////////////////////////////////////////////////////
+
+// Hide element.
+.hidden {
+  display: none;
+}
+
+// Disable text selection.
+.noselect {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
