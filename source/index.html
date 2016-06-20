@@ -7,11 +7,54 @@
     <!-- Responsive Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title></title>
+    <!-- jQuery -->
+    <script type="text/javascript" src="components/jquery/jquery.js"></script>
+
+    <!-- Application Stylesheet -->
+    <link rel="stylesheet" href="stylesheets/stylesheet.css"/>
+
+    <!-- Application Scripts -->
+    <script type="text/javascript" src="javascript/quote-generator.js"></script>
+
+    <title>Life is Strange Quote Generator</title>
 
   </head>
 
   <body>
+
+    <!-- Audio source -->
+    <audio id="audio-click" preload="auto">
+      <source src="audio/Diary_Sms_Open.ogg" type="audio/ogg"/>
+    </audio>
+
+    <!-- Video container -->
+    <div id="container-video">
+      <iframe id="bg-video"></iframe>
+    </div>
+
+    <!-- Mask to prevent clicking through to the video background -->
+    <div id="mask" class="noselect"></div>
+
+    <!-- Container for page content -->
+    <div class="container">
+
+      <div id="area-generate-quote">
+
+        <!-- Quote -->
+        <div id="container-quote" class="noselect">
+          Enable JavaScript to continue.
+        </div>
+
+        <!-- Quote Source -->
+        <div id="container-quote-source" class="hidden noselect"></div>
+      </div>
+
+      <!-- Social Media -->
+      <div id="container-social-media" class="hidden noselect">
+        <a href="" target="_blank"><img src="images/Twitter/TwitterLogo_white.png" width="30px"></a>
+      </div>
+
+    </div>
 
   </body>
 
