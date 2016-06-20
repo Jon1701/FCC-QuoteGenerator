@@ -16,10 +16,22 @@ var modulesPath = "node_modules/";
 // Tasks
 ////////////////////////////////////////////////////////////////////////////////
 
-// Move HTML files.
-gulp.task("html", function() {
-  gulp.src(srcPath + "*.html")
-    .pipe(gulp.dest(destPath));
+// Audio
+gulp.task("audio", function() {
+  gulp.src(srcPath + "audio/**/*")
+    .pipe(gulp.dest(destPath + "audio/"));
+});
+
+// Move data files.
+gulp.task("data", function() {
+  gulp.src(srcPath + "data/**/*")
+    .pipe(gulp.dest(destPath + "data/"));
+});
+
+// Move fonts.
+gulp.task("fonts", function() {
+  gulp.src(srcPath + "fonts/**/*")
+    .pipe(gulp.dest(destPath + "fonts/"));
 });
 
 // Move images.
@@ -31,7 +43,20 @@ gulp.task("images", function() {
 // Move JavaScript.
 gulp.task("javascript", function() {
   gulp.src(srcPath + "javascript/**/*.js")
-    .pipe(gulp.dest(destPath + "js"));
+    .pipe(gulp.dest(destPath + "javascript"));
+});
+
+// Compile and move .scss.
+gulp.task("stylesheets", function() {
+  gulp.src(srcPath + "stylesheets/*.scss")
+    .pipe(sass())
+    .pipe(gulp.dest(destPath + "stylesheets"));
+});
+
+// Move HTML files.
+gulp.task("html", function() {
+  gulp.src(srcPath + "*.html")
+    .pipe(gulp.dest(destPath));
 });
 
 // Move Components.
@@ -41,33 +66,6 @@ gulp.task("components", function() {
   gulp.src(modulesPath + "jquery/dist/jquery.js")
     .pipe(gulp.dest(destPath + "components/jquery/"));
 
-  // Bootstrap.
-  gulp.src(modulesPath + "bootstrap/dist/**/*")
-    .pipe(gulp.dest(destPath + "components/bootstrap/"));
-
-  // Font-Awesome
-  gulp.src(modulesPath + "font-awesome/css/*")
-    .pipe(gulp.dest(destPath + "components/font-awesome/css/"));
-  gulp.src(modulesPath + "font-awesome/fonts/*")
-    .pipe(gulp.dest(destPath + "components/font-awesome/fonts/"));
-
-  // Mustache.js
-  gulp.src(modulesPath + "mustache/mustache.js")
-    .pipe(gulp.dest(destPath + "components/mustache/"));
-
-});
-
-// Compile and move .scss.
-gulp.task("scss", function() {
-  gulp.src(srcPath + "stylesheets/*.scss")
-    .pipe(sass())
-    .pipe(gulp.dest(destPath + "css"));
-});
-
-// Fonts.
-gulp.task("fonts", function() {
-  gulp.src(srcPath + "fonts/**/*")
-    .pipe(gulp.dest(destPath + "fonts/"));
 });
 
 // Webserver.
@@ -85,16 +83,18 @@ gulp.task("webserver", function() {
 // Watch Tasks.
 ////////////////////////////////////////////////////////////////////////////////
 
-// Watch task
 gulp.task("watch", function() {
-  gulp.watch(srcPath + "*.html", ["html"]); // HTML files.
+  gulp.watch(srcPath + "audio/**/*", ["audio"]); // Audio.
+  gulp.watch(srcPath + "data/**/*", ["data"]); // Data.
+  gulp.watch(srcPath + "fonts/**/*", ["fonts"]); // Fonts.
   gulp.watch(srcPath + "images/**/*", ["images"]); // Images.
   gulp.watch(srcPath + "javascript/**/*.js", ["javascript"]); // JavaScript.
-  gulp.watch(srcPath + "stylesheets/_*.scss", ["scss"]); // SASS Partials.
-  gulp.watch(srcPath + "stylesheets/*.scss", ["scss"]); // SASS Main.
+  gulp.watch(srcPath + "stylesheets/**/_*.scss", ["stylesheets"]); // SASS Partials.
+  gulp.watch(srcPath + "stylesheets/**/*.scss", ["stylesheets"]); // SASS Main.
+  gulp.watch(srcPath + "*.html", ["html"]); // HTML files.
 });
 
 ////////////////////////////////////////////////////////////////////////////////
 // Default Task.
 ////////////////////////////////////////////////////////////////////////////////
-gulp.task("default", ["watch", "html", "scss", "images", "javascript" ,"components", "fonts", "webserver"]);
+gulp.task("default", ["audio", "data", "fonts", "images", "javascript", "stylesheets", "html", "components", "webserver"]);
