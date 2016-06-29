@@ -49,7 +49,7 @@ gulp.task("javascript", function() {
 // Compile and move .scss.
 gulp.task("stylesheets", function() {
   gulp.src(srcPath + "stylesheets/*.scss")
-    .pipe(sass())
+    .pipe(sass().on("error", sass.logError))
     .pipe(gulp.dest(destPath + "stylesheets"));
 });
 
