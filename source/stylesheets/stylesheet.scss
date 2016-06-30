@@ -18,6 +18,9 @@ body {
   font-family: "Dudu Calligraphy", sans-serif;
   font-size: 100%;
 
+  // Responsive font scaling.
+  @import "_font-size.scss";
+
   color: #FFFFFF;
 }
 
