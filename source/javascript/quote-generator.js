@@ -87,32 +87,14 @@ $(document).ready(function() {
 
   }
 
-
-
-
-
-
-
-
-
-
-
-  // Array of quotes in JSON format.
-  var quotes = [];
-
-  // Load audio click sound.
-  var audioClick = $("#audio-click");
-
   //////////////////////////////////////////////////////////////////////////////
-  // Load quotes via AJAX request.
-  //
-  // If quotes are successfully loaded, enable mouse and keyboard events to
-  // randomly select a quote.
-  //
-  // If loading was not successful, show error message, remove all backgrounds.
+  // AJAX callabacks.
   //////////////////////////////////////////////////////////////////////////////
-  $.getJSON("data/quotes.json")
-    .done(function(data) {
+
+  // When quotes have been successfully been retrieved, use this function.
+  //
+  // Gets the quotes, modifies DOM, sets background video.
+  var callbackSuccessGetQuotes = function(data) {
 
       // If the request succeeds, store the quotes in the global quotes variable.
       quotes = data;
@@ -143,37 +125,41 @@ $(document).ready(function() {
           // Play sound on click.
           audioClick.trigger("play");
         });
-
       }
+    }// end callbackSuccessGetQuotes().
 
-    })
-    .error(function(e) {
+  // If quotes were not able to be retrieved, use this function.
+  //
+  // Modify DOM to show error message. Remove background image/video.
+  var callbackFailGetQuotes = function(e) {
 
-      // Display error message on the DOM.
-      setQuoteDOM("Error. Unable to load quote data.");
+    // Display error message on the DOM.
+    setQuoteDOM("Error. Unable to load quote data.");
 
-      // Remove background video.
-      $("#bg-video").remove();
+    // Remove background video.
+    $("#bg-video").remove();
 
-      // Remove background image.
-      $("body").css("background-image", "none");
+    // Remove background image.
+    $("body").css("background-image", "none");
 
-      // Set quote container to middle since videos.
-      $(".container").css("top", "50%");
+    // Set quote container to middle since videos.
+    $(".container").css("top", "50%");
+  } // end callbackFailGetQuotes.
 
-    });
+  // If videos have been successfully retrieved, use this function.
+  //
+  // Randomly select a video to be used as a background.
+  // Check if using a mobile device, if on mobile, remove video and fall back
+  // to static background image.
+  var callbackSuccessGetVideos = function(data) {
 
-    //////////////////////////////////////////////////////////////////////////////
-    // Load video background via AJAX request.
-    //
-    // If list of videos were successul, randomly select a video and set it as
-    // the background.
-    //
-    // If loading was not successful, remove the video background container,
-    // and fall back to the static background image.
-    //////////////////////////////////////////////////////////////////////////////
-    $.getJSON("data/videos.json")
-      .done(function(data) {
+      // Check for mobile device.
+      if ( (/iphone|ipod|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) ) {
+
+        // If mobile, remove video container.
+        //$("#container-video").remove();
+
+      } else { // If not mobile, set video background.
 
         // Randomly select a video.
         var idx = Math.floor(Math.random() * data.length);
@@ -198,16 +184,60 @@ $(document).ready(function() {
         // Show the video
         $("#bg-video").attr("src", embedUrl);
 
-      })
-      .error(function(e) {
+      }// done checking for mobile.
+    } // end callbackSuccessGetVideos().
 
-        // If the video list cannot be obtained, delete the video container
-        // to prevent black background.
-        //
-        // Since a background image is already loaded, it will be the fallback
-        // option.
-        $("#container-video").remove();
-      });
+  // If videos could not be obtained, use this function.
+  //
+  // Remove video container.
+  var callbackFailGetVideos = function(e) {
 
+    // If the video list cannot be obtained, delete the video container
+    // to prevent black background.
+    //
+    // Since a background image is already loaded, it will be the fallback
+    // option.
+    $("#container-video").remove();
+
+  }
+
+
+
+
+
+
+
+
+
+  // Array of quotes in JSON format.
+  var quotes = [];
+
+  // Load audio click sound.
+  var audioClick = $("#audio-click");
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Load quotes via AJAX request.
+  //
+  // If quotes are successfully loaded, enable mouse and keyboard events to
+  // randomly select a quote.
+  //
+  // If loading was not successful, show error message, remove all backgrounds.
+  //////////////////////////////////////////////////////////////////////////////
+  var ajaxGetQuotes = $.getJSON("data/quotes.json");
+  ajaxGetQuotes.done(callbackSuccessGetQuotes);
+  ajaxGetQuotes.fail(callbackFailGetQuotes);
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Load video background via AJAX request.
+  //
+  // If list of videos were successul, randomly select a video and set it as
+  // the background.
+  //
+  // If loading was not successful, remove the video background container,
+  // and fall back to the static background image.
+  //////////////////////////////////////////////////////////////////////////////
+  var ajaxGetVideos = $.getJSON("data/videos.json");
+  ajaxGetVideos.done(callbackSuccessGetVideos);
+  ajaxGetVideos.fail(callbackFailGetVideos);
 
 });
