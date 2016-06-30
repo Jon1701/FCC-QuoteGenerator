@@ -97,4 +97,4 @@ gulp.task("watch", function() {
 ////////////////////////////////////////////////////////////////////////////////
 // Default Task.
 ////////////////////////////////////////////////////////////////////////////////
-gulp.task("default", ["audio", "data", "fonts", "images", "javascript", "stylesheets", "html", "components", "webserver"]);
+gulp.task("default", ["audio", "data", "fonts", "images", "javascript", "stylesheets", "html", "components", "watch", "webserver"]);
