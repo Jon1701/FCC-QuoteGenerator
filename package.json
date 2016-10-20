@@ -3,8 +3,11 @@
   "version": "2.0.0",
   "description": "none",
   "main": "none",
+  "bin": {
+    "gulp": "./bin/gulp"
+  },
   "scripts": {
-    "test": "none"
+    "dev": "gulp"
   },
   "repository": {
     "type": "git",
@@ -15,7 +18,7 @@
   ],
   "author": "you",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.2",
     "gulp-webserver": "^0.9.1",
